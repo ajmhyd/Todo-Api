@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/TodoApp', { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/TodoApp', { useNewUrlParser: true });
 
 module.exports = { mongoose };
