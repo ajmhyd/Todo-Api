@@ -36,7 +36,6 @@ describe('POST /todos', () => {
   });
 
   it('should not create todo with invalid body data', (done) => {
-
     request(app)
     .post('/todos')
     .set('x-auth', users[0].tokens[0].token)
@@ -141,7 +140,6 @@ describe('DELETE /todos/:id', () => {
       });
   });
   it('should return 404 if todo not found', (done) => {
-    //make sure i get 404 back
     request(app)
       .delete(`/todos/${new ObjectID().toHexString()}`)
       .set('x-auth', users[1].tokens[0].token)
@@ -210,15 +208,15 @@ describe('PATCH /todos/:id', () => {
 
 describe('GET /users/me', () => {
   it('should return user if authenticated', (done) => {
-      request(app)
-        .get('/users/me')
-        .set('x-auth', users[0].tokens[0].token)
-        .expect(200)
-        .expect((res) => {
-          expect(res.body._id).toBe(users[0]._id.toHexString());
-          expect(res.body.email).toBe(users[0].email);
-        })
-        .end(done);
+    request(app)
+      .get('/users/me')
+      .set('x-auth', users[0].tokens[0].token)
+      .expect(200)
+      .expect((res) => {
+        expect(res.body._id).toBe(users[0]._id.toHexString());
+        expect(res.body.email).toBe(users[0].email);
+      })
+      .end(done);
   });
 
   it('should return 401 if not authenticated', (done) => {
@@ -257,7 +255,6 @@ describe('POST /users', () => {
         }).catch((err) => done(err));
       });
   });
-
   it('should return validation errors if request is invalid', (done) => {
     request(app)
       .post('/users')
@@ -265,7 +262,6 @@ describe('POST /users', () => {
       .expect(400)
       .end(done);
   });
-
   it('should not create user if email in use', (done) => {
     request(app)
       .post('/users')
@@ -301,7 +297,6 @@ describe('POST /users/login', () => {
         }).catch((err) => done(err));
       });
   });
-
   it('should reject invalid login', (done) => {
     request(app)
       .post('/users/login')
@@ -324,7 +319,7 @@ describe('POST /users/login', () => {
         }).catch((err) => done(err));
       });
   });
-})
+});
 
 describe('DELETE /users/me/token', () => {
   it('should remove auth token on logout', (done) => {
@@ -342,5 +337,5 @@ describe('DELETE /users/me/token', () => {
           done();
         }).catch((err) => done(err));
       });
-  })
-})
+  });
+});
